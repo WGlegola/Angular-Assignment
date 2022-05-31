@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { ActiveUsersComponent } from './active-users/active-users.component';
 import { InactiveUsersComponent } from './inactive-users/inactive-users.component';
+import { UsersSevice } from './users.service';
+import { CountService } from './count.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { InactiveUsersComponent } from './inactive-users/inactive-users.componen
     BrowserModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [UsersSevice, CountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
