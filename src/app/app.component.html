@@ -1,57 +1,56 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <!-- Add a Form with the following Inputs (and Validators)
-           1) Mail address (should not be empty and should be an email address)
-           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
-              Set "Advanced" as Default
-           3) A Password field (should not be empty)
-           4) A Submit Button
+      <!--
+          Create a Form with the following Controls and Validators
+          1) Project Name (should not be empty)
+          2) Mail (should not be a empty and a valid email)
+          3) Project Status Dropdown, with three values: 'Stable', 'Critical', 'Finished'
+          4) Submit Button
 
-           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+          Add your own Validator which doesn't allow "Test" as a Project Name
 
-           Upon submitting the form, you should simply print the Value of the Form to the Console.
-           Optionally, display it in your template.
+          Also implement that Validator as an async Validator (replace the other one)
+
+          Upon submitting the form, simply print the value to the console
       -->
-      <form (ngSubmit)="f" #f=ngForm>
-        <div ngModelGroup="userData"
-        #userData="ngModelGroup">
+      <form [formGroup]="controlForm" (ngSubmit)="onSaveProject()">
+        <div class="form-group">
+          <label for="projectName">Nazwa</label>
           <input
-          type="email"
-          id="email"
-          class="formcontroll"
-          ngModel
-          name="email"
-          required
-          email
-          >
-          <select
-          id="level"
-          class="form-control"
-          [ngModel]="inputQuestion"
-          name="level">
-            <option value="Beginer">Beginer</option>
-            <option value="Advanced">Advanced</option>
-            <option value="Pro">Pro</option>
-          </select>
-          <input
-          type="password"
-          id="password"
-          class="formcontroll"
-          ngModel
-          name="password"
-          required
-          >
-          <button 
-          class="btn btn-default formcontroll" 
-          type="submit" 
-          [disabled]="!f.valid">
-            Submit
-          </button>
+            type="text"
+            id="projectName"
+            formControlName="projectName"
+            class="form-control"/>
         </div>
-        <p *ngIf="!userData.valid && userData.touched">Nie bangla</p>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="text"
+            id="email"
+            formControlName="email"
+            class="form-control"/>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select 
+            name="status"
+            id="status" 
+            class="form-control"
+            formControlName="status"
+            >
+            <option 
+              *ngFor="let statuss of statuses" 
+              [value]="statuss">
+                {{statuss}}
+            </option>
+          </select>
+        </div>
+        <button 
+        class="btn btn-primary" 
+        type="submit" 
+        [disabled]="controlForm.invalid">Submit</button>
       </form>
-      
     </div>
   </div>
 </div>
